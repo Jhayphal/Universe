@@ -41,6 +41,10 @@ public sealed class Window : GameWindow
   {
     base.OnLoad();
 
+    GL.ClearColor(Settings.Background);
+    GL.PointSize(Settings.PointSize);
+    GL.Enable(OpenTK.Graphics.OpenGL4.EnableCap.Blend);
+
     IParticleProvider provider = new ParticleProvider();
     var rules = provider.GetRules(Size);
     IGravityRulesAdapter adapter = new GpuGravityRulesAdapter();
@@ -49,10 +53,6 @@ public sealed class Window : GameWindow
     
     vertices = adapter.Vertices;
     particlesCount = adapter.ParticlesCount;
-
-    GL.ClearColor(Settings.Background);
-    GL.PointSize(Settings.PointSize);
-    GL.Enable(OpenTK.Graphics.OpenGL4.EnableCap.Blend);
 
     vertexBufferObject = GL.GenBuffer();
 
