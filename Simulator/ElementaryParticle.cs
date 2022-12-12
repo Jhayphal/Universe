@@ -3,7 +3,7 @@ using OpenTK.Mathematics;
 
 namespace Universe;
 
-public sealed class LifeParticle : IElementaryParticle, IVisualParticle, IEquatable<LifeParticle>
+public sealed class ElementaryParticle : IElementaryParticle, IVisualParticle, IEquatable<ElementaryParticle>
 {
   private static int _lastId;
 
@@ -17,7 +17,7 @@ public sealed class LifeParticle : IElementaryParticle, IVisualParticle, IEquata
   
   public float Radius { get; }
 
-  public LifeParticle(Vector2 position, float radius, Vector2 acceleration, Color light)
+  public ElementaryParticle(Vector2 position, float radius, Vector2 acceleration, Color light)
   {
     Position = position;
     Radius = radius;
@@ -31,11 +31,11 @@ public sealed class LifeParticle : IElementaryParticle, IVisualParticle, IEquata
 
   public void SetAcceleration(Vector2 acceleration) => Acceleration = acceleration;
 
-  public IElementaryParticle Clone() => new LifeParticle(Position, Radius, Acceleration, Light);
+  public IElementaryParticle Clone() => new ElementaryParticle(Position, Radius, Acceleration, Light);
 
   public override int GetHashCode() => hashCode;
 
-  public bool Equals(LifeParticle other)
+  public bool Equals(ElementaryParticle other)
   {
     if (other == null)
       return false;
@@ -43,7 +43,7 @@ public sealed class LifeParticle : IElementaryParticle, IVisualParticle, IEquata
     return other.GetHashCode() == GetHashCode();
   }
 
-  public override bool Equals(object obj) => Equals(obj as LifeParticle);
+  public override bool Equals(object obj) => Equals(obj as ElementaryParticle);
 
   public override string ToString() => Light.ToString();
 }

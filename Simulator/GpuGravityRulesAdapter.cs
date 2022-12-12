@@ -24,13 +24,13 @@ internal sealed class GpuGravityRulesAdapter : IGravityRulesAdapter
   {
     var offset = 0;
     var maps = new List<GpuMap>();
-    var particlesMap = new Dictionary<LifeParticle, int>();
+    var particlesMap = new Dictionary<ElementaryParticle, int>();
     foreach (var ruleCollection in rules.Values)
     {
       foreach (var rule in ruleCollection)
       {
         var areaOfInfluence = MapDisplayRange(rule.AreaOfInfluence, area.Y);
-        foreach (var sourceParticle in rule.SourceGroup.Cast<LifeParticle>())
+        foreach (var sourceParticle in rule.SourceGroup.Cast<ElementaryParticle>())
         {
           if (!particlesMap.TryGetValue(sourceParticle, out var sourceIndex))
           {
@@ -39,7 +39,7 @@ internal sealed class GpuGravityRulesAdapter : IGravityRulesAdapter
             ++offset;
           }
 
-          foreach (var targetParticle in rule.TargetGroup.Cast<LifeParticle>())
+          foreach (var targetParticle in rule.TargetGroup.Cast<ElementaryParticle>())
           {
             if (!particlesMap.TryGetValue(targetParticle, out var targetIndex))
             {
@@ -83,7 +83,7 @@ internal sealed class GpuGravityRulesAdapter : IGravityRulesAdapter
 
   private static void AddPoint(List<float> vertices, Vector2 position, Vector2i area)
   {
-    vertices.Add(MapDisplayRange(position.X, area.X));
+    vertices.Add(MapDisplayRange(position.X, area.Y));
     vertices.Add(MapDisplayRange(position.Y, area.Y));
     vertices.Add(0f); // Z
   }

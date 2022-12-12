@@ -43,7 +43,7 @@ internal sealed class GravityRuleBuilder
     {
       var position = Generator.MakePosition(area);
       var acceleration = Generator.MakeAcceleration(-1f, 1f);
-      items[i] = new LifeParticle(position, Radius, acceleration, color);
+      items[i] = new ElementaryParticle(position, Radius, acceleration, color);
     }
 
     particles.Add(color, items);

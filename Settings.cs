@@ -12,7 +12,7 @@ public static class Settings
 
   public const float Attenuation = 0.00085f;
 
-  public static readonly Range AreaOfInfluenceRange = 3..600;
+  public static readonly Range AreaOfInfluenceRange = 30..600;
 
   public const int DefaultAreaOfInfluence = 80;
 
