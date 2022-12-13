@@ -17,7 +17,7 @@ namespace Universe;
 
 internal sealed class UniverseView : IDisposable
 {
-  private readonly IGravitySimulator simulator = new GpuGravitySimulator(platformId: 0);
+  private readonly IGravitySimulator simulator = new GpuGravitySimulator(Settings.PlatformId, Settings.DeviceId, Settings.Type);
 
   private const int Dimensions = 3;
   private const int ColorBytes = 3;
