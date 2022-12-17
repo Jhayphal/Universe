@@ -41,7 +41,6 @@ internal sealed class UniverseView : IDisposable
 
     GL.ClearColor(Settings.Background);
     GL.PointSize(Settings.PointSize);
-    GL.Enable(OpenTK.Graphics.OpenGL4.EnableCap.Blend);
 
     IParticleProvider provider = new ParticleProvider();
     var rules = provider.GetRules(size);

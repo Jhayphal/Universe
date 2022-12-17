@@ -21,10 +21,10 @@ internal static class Generator
 
   public static Color MakeColor()
     => Color.FromArgb(
-      100,
-      Current.Next(180, byte.MaxValue), 
-      Current.Next(180, byte.MaxValue), 
-      Current.Next(180, byte.MaxValue));
+      byte.MaxValue,
+      Current.Next(100, byte.MaxValue), 
+      Current.Next(100, byte.MaxValue), 
+      Current.Next(100, byte.MaxValue));
 
   public static bool MakeChance() => Current.NextDouble() - 0.5d > 0.0001d;
 
