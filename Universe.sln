@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universe", "Universe.csproj", "{1F5DBCB7-D7B9-48D4-BB2F-28E612B64ED5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universe", "GravitySimulator\Universe.csproj", "{1F5DBCB7-D7B9-48D4-BB2F-28E612B64ED5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevicesInfo", "..\DevicesInfo\DevicesInfo.csproj", "{1999C6BA-8607-4173-9AA2-B02C659D2312}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevicesInfo", "DevicesInfo\DevicesInfo.csproj", "{1999C6BA-8607-4173-9AA2-B02C659D2312}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

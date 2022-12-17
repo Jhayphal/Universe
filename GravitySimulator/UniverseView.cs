@@ -12,6 +12,7 @@ using VertexAttribPointerType = OpenTK.Graphics.OpenGL4.VertexAttribPointerType;
 using Universe.Simulator;
 using Universe.Shaders;
 using OpenTK.Mathematics;
+using System.Diagnostics;
 
 namespace Universe;
 
