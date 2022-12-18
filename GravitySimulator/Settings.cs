@@ -29,7 +29,7 @@ public static class Settings
 
   public static readonly Color Background = Color.Black;
 
-  public const float PointSize = 6f;
+  public const float PointSize = 8f;
 
   #endregion View
 

@@ -21,7 +21,6 @@ internal static class Generator
 
   public static Color MakeColor()
     => Color.FromArgb(
-      byte.MaxValue,
       Current.Next(100, byte.MaxValue), 
       Current.Next(100, byte.MaxValue), 
       Current.Next(100, byte.MaxValue));

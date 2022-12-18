@@ -6,5 +6,5 @@ in vec3 ourColor;
 
 void main()
 {
-    outputColor = vec4(ourColor, 1.0);
+    outputColor = vec4(ourColor, 0.23);
 }
