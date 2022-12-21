@@ -1,6 +1,6 @@
 ﻿namespace Universe.Simulator;
 
-public interface IGravitySimulator
+internal interface IGravitySimulator
 {
   void Gravitate();
 }

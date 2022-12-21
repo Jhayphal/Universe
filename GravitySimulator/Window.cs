@@ -1,16 +1,12 @@
-﻿#if DEBUG
-#define LOG_TIME
-#endif
-
-using OpenTK.Windowing.Common;
+﻿using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Windowing.Desktop;
+
 using GL = OpenTK.Graphics.OpenGL4.GL;
-using System.Diagnostics;
 
 namespace Universe;
 
-public sealed class Window : GameWindow
+internal sealed class Window : GameWindow
 {
   private UniverseView view = new();
 
@@ -19,31 +15,24 @@ public sealed class Window : GameWindow
   {
   }
 
+  private readonly Chronograph FrameChronograph = new("Frame: ");
+
   protected override void OnLoad()
   {
     base.OnLoad();
-
     view.OnLoad(Size);
   }
 
   protected override void OnRenderFrame(FrameEventArgs e)
   {
-#if LOG_TIME
-    var frameStopwatch = Stopwatch.StartNew();
-#endif
-    base.OnRenderFrame(e);
+    FrameChronograph.Start();
 
+    base.OnRenderFrame(e);
     view.OnRenderFrame(Size);
 
     SwapBuffers();
 
-#if LOG_TIME
-    frameStopwatch.Stop();
-    Debug.WriteLine("Frame: " + frameStopwatch.Elapsed.TotalMilliseconds);
-
-    frameStopwatch.Reset();
-    frameStopwatch.Start();
-#endif
+    FrameChronograph.Stop();
   }
 
   protected override void OnUpdateFrame(FrameEventArgs e)
@@ -61,6 +50,12 @@ public sealed class Window : GameWindow
       view.Dispose();
       view = new();
       view.OnLoad(Size);
+    }
+    else if (input.IsKeyDown(Keys.F11))
+    {
+      WindowState = WindowState != WindowState.Fullscreen
+        ? WindowState.Fullscreen
+        : WindowState.Normal;
     }
   }
 

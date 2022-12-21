@@ -1,10 +1,8 @@
-﻿#define LOG_TIME
-
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 
 namespace Universe.Simulator;
 
-sealed class GpuBag
+internal sealed class GpuBag
 {
   public GpuBag(float[] vertices, float[] accelerations, GpuMap[] maps, Vector2i area, float attenuation)
   {

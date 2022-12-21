@@ -8,32 +8,27 @@ public sealed class ElementaryParticle : IElementaryParticle, IVisualParticle, I
   private static int _lastId;
 
   private readonly int hashCode;
-
-  public Vector2 Position { get; set; }
   
-  public Vector2 Acceleration { get; set; }
-
-  public Color Light { get; }
-  
-  public float Radius { get; }
-
-  public ElementaryParticle(Vector2 position, float radius, Vector2 acceleration, Color light)
+  public ElementaryParticle(Vector2 position, Vector2 acceleration, Color light)
   {
     Position = position;
-    Radius = radius;
     Acceleration = acceleration;
     Light = light;
 
     hashCode = ++_lastId;
   }
 
-  public void SetPosition(Vector2 position) => Position = position;
+  public Color Light { get; }
 
-  public void SetAcceleration(Vector2 acceleration) => Acceleration = acceleration;
+  public Vector2 Position { get; set; }
 
-  public IElementaryParticle Clone() => new ElementaryParticle(Position, Radius, Acceleration, Light);
+  public Vector2 Acceleration { get; set; }
 
-  public override int GetHashCode() => hashCode;
+  public void SetPosition(Vector2 position)
+    => Position = position;
+
+  public void SetAcceleration(Vector2 acceleration)
+    => Acceleration = acceleration;
 
   public bool Equals(ElementaryParticle other)
   {
@@ -43,7 +38,12 @@ public sealed class ElementaryParticle : IElementaryParticle, IVisualParticle, I
     return other.GetHashCode() == GetHashCode();
   }
 
-  public override bool Equals(object obj) => Equals(obj as ElementaryParticle);
+  public override int GetHashCode()
+    => hashCode;
 
-  public override string ToString() => Light.ToString();
+  public override bool Equals(object obj)
+    => Equals(obj as ElementaryParticle);
+
+  public override string ToString()
+    => Light.ToString();
 }

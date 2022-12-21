@@ -2,7 +2,7 @@
 
 namespace Universe;
 
-public interface IElementaryParticle
+internal interface IElementaryParticle
 {
   Vector2 Position { get; }
 
@@ -11,6 +11,4 @@ public interface IElementaryParticle
   void SetPosition(Vector2 position);
 
   void SetAcceleration(Vector2 acceleration);
-
-  IElementaryParticle Clone();
 }

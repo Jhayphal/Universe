@@ -1,6 +1,6 @@
 ﻿namespace Universe.Simulator;
 
-public interface IGravityRule
+internal interface IGravityRule
 {
   IElementaryParticle[] SourceGroup { get; }
 

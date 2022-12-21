@@ -2,9 +2,7 @@
 
 namespace Universe;
 
-public interface IVisualParticle
+internal interface IVisualParticle
 {
   Color Light { get; }
-
-  float Radius { get; }
 }

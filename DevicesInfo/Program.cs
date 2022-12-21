@@ -2,7 +2,9 @@
 using System.Text;
 
 string BytesAsString(byte[] bytes) => Encoding.UTF8.GetString(bytes);
+
 void Print(string message, int indent = 0) => Console.WriteLine(new string('\t', indent) + message);
+
 bool OkResult(CLResultCode code) => code == CLResultCode.Success;
 
 var result = CL.GetPlatformIds(out var platforms);

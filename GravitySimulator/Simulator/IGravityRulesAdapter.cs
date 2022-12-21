@@ -1,7 +1,6 @@
-﻿using Universe.Providers;
+﻿using System.Drawing;
 using OpenTK.Mathematics;
-using System.Collections.ObjectModel;
-using System.Drawing;
+using Universe.Providers;
 
 namespace Universe.Simulator;
 
@@ -11,7 +10,7 @@ internal interface IGravityRulesAdapter
   
   float[] Vertices { get; }
 
-  void FillUp(Dictionary<Color, ReadOnlyCollection<GravityRule>> rules, Vector2i area);
+  void FillUp(IDictionary<Color, IReadOnlyCollection<GravityRule>> rules, Vector2i area);
   
   void Setup(IGravitySimulator executor);
 }

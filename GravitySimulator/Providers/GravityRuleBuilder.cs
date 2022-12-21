@@ -1,24 +1,19 @@
-﻿using OpenTK.Mathematics;
+﻿using System.Drawing;
 using System.Collections.ObjectModel;
-using System.Drawing;
+using OpenTK.Mathematics;
 
 namespace Universe.Providers;
 
 internal sealed class GravityRuleBuilder
 {
-  private const int Radius = 6;
-
   private readonly Dictionary<Color, IElementaryParticle[]> particles = new();
   private readonly Dictionary<Color, List<GravityRule>> rules = new();
 
-  public Dictionary<Color, ReadOnlyCollection<GravityRule>> GetRules()
-    => rules.Select(x => new
-    {
-      x.Key, 
-      Value = new ReadOnlyCollection<GravityRule>(x.Value)
-    }).ToDictionary(x => x.Key, x => x.Value);
+  public IDictionary<Color, IReadOnlyCollection<GravityRule>> GetRules()
+    => rules.Select(x => new { x.Key, Value = new ReadOnlyCollection<GravityRule>(x.Value) })
+      .ToDictionary(x => x.Key, x => (IReadOnlyCollection<GravityRule>)x.Value);
 
-  public void MakeRule(Color source, Color target, float gravityForce, float gravitateDistance)
+  public void MakeRule(Color source, Color target, float gravityForce, float areaOfInfluence)
   {
     if (!rules.TryGetValue(source, out var items))
     {
@@ -31,7 +26,7 @@ internal sealed class GravityRuleBuilder
       sourceGroup: particles[source],
       targetGroup: particles[target],
       force: gravityForce,
-      areaOfInfluence: gravitateDistance
+      areaOfInfluence: areaOfInfluence
     ));
   }
 
@@ -43,7 +38,7 @@ internal sealed class GravityRuleBuilder
     {
       var position = Generator.MakePosition(area);
       var acceleration = Generator.MakeAcceleration(-1f, 1f);
-      items[i] = new ElementaryParticle(position, Radius, acceleration, color);
+      items[i] = new ElementaryParticle(position, acceleration, color);
     }
 
     particles.Add(color, items);

@@ -1,6 +1,6 @@
-﻿using OpenTK.Compute.OpenCL;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Data;
+using OpenTK.Compute.OpenCL;
 
 namespace Universe.Helpers;
 
@@ -24,19 +24,6 @@ internal static class CLHelper
     CheckIfArrayEmpty(devices, nameof(devices));
     return devices;
   }
-
-  public static ulong GetMaximumWorkGroupSize(CLDevice device)
-  {
-    var result = CL.GetDeviceInfo(device, DeviceInfo.MaximumWorkGroupSize, out var value);
-    CheckResult(nameof(CL.GetDeviceInfo), result);
-    return BitConverter.ToUInt64(value);
-  }
-
-  public static CLContext CreateContext(int platformId, DeviceType deviceType)
-    => CreateContext(GetDeviceIds(platformId, deviceType));
-
-  public static CLContext CreateContext(CLPlatform platform, DeviceType deviceType)
-    => CreateContext(GetDeviceIds(platform, deviceType));
 
   public static CLContext CreateContext(CLDevice[] devices)
   {
@@ -115,20 +102,6 @@ internal static class CLHelper
       null,
       out _);
     CheckResult(nameof(CL.EnqueueWriteBuffer), result);
-  }
-
-  public static T[] ReadBuffer<T>(CLCommandQueue commandQueue, CLBuffer buffer, int count) where T : unmanaged
-  {
-    var response = new T[count];
-    var result = CL.EnqueueReadBuffer(
-      commandQueue,
-      buffer,
-      true,
-      UIntPtr.Zero,
-      response,
-      null, out _);
-    CheckResult(nameof(CL.EnqueueReadBuffer), result);
-    return response;
   }
 
   public static T[] ReadBuffer<T>(CLCommandQueue commandQueue, CLBuffer buffer, T[] response) where T : unmanaged

@@ -19,7 +19,7 @@ internal static class ResourceHelper
     catch (Exception ex)
     {
       Debug.WriteLine(ex.Message);
-      return string.Empty;
+      throw;
     }
   }
 }

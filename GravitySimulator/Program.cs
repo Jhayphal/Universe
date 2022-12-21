@@ -7,14 +7,16 @@ internal class Program
 {
   private static void Main()
   {
-    var area = Monitors.GetPrimaryMonitor().ClientArea;
+    var areaSize = Monitors.GetPrimaryMonitor().ClientArea.Size;
 
     var nativeWindowSettings = new NativeWindowSettings()
     {
-      Title = nameof(Universe),
-      Flags = ContextFlags.ForwardCompatible,
+      Title = $"{nameof(Universe)}, F5 - Update, F11 - Fullscreen",
+      Size = (areaSize.X >> 1, areaSize.Y >> 1),
+      Location = (areaSize.X >> 2, areaSize.Y >> 4),
       AspectRatio = (1, 1),
-      WindowState = WindowState.Fullscreen
+      Flags = ContextFlags.ForwardCompatible,
+      WindowState = WindowState.Normal
     };
     
     using var window = new Window(GameWindowSettings.Default, nativeWindowSettings);

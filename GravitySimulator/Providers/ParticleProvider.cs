@@ -1,15 +1,15 @@
-﻿using OpenTK.Mathematics;
-using System.Collections.ObjectModel;
+﻿using System.Drawing;
 using System.Diagnostics;
-using System.Drawing;
+using OpenTK.Mathematics;
 
 namespace Universe.Providers;
 
 internal sealed class ParticleProvider : IParticleProvider
 {
-  public Dictionary<Color, ReadOnlyCollection<GravityRule>> GetRules(Vector2i area) => GetRulesR(area);
+  public IDictionary<Color, IReadOnlyCollection<GravityRule>> GetRules(Vector2i area)
+    => GetRandomSample(area);
 
-  public Dictionary<Color, ReadOnlyCollection<GravityRule>> GetRulesR(Vector2i area)
+  public IDictionary<Color, IReadOnlyCollection<GravityRule>> GetRandomSample(Vector2i area)
   {
     var colorsCount = Generator.Current.Next(
       Settings.ColorsCount.Start.Value, 
@@ -29,7 +29,7 @@ internal sealed class ParticleProvider : IParticleProvider
       colors.ToArray());
   }
 
-  public Dictionary<Color, ReadOnlyCollection<GravityRule>> GetRules1(Vector2i area)
+  public IDictionary<Color, IReadOnlyCollection<GravityRule>> GetSample1(Vector2i area)
   {
     var count = Settings.MaximumParticlesCount;
     var green = Color.Green;
@@ -53,7 +53,7 @@ internal sealed class ParticleProvider : IParticleProvider
     return builder.GetRules();
   }
 
-  private Dictionary<Color, ReadOnlyCollection<GravityRule>> GetRules2(Vector2i area)
+  private IDictionary<Color, IReadOnlyCollection<GravityRule>> GetSample2(Vector2i area)
   {
     var count = Settings.MaximumParticlesCount;
     var green = Color.Green;
@@ -88,7 +88,7 @@ internal sealed class ParticleProvider : IParticleProvider
     return builder.GetRules();
   }
 
-  public Dictionary<Color, ReadOnlyCollection<GravityRule>> GetRules3(Vector2i area)
+  public IDictionary<Color, IReadOnlyCollection<GravityRule>> GetSample3(Vector2i area)
   {
     var count = Settings.MaximumParticlesCount;
     var green = Color.Green;
@@ -113,7 +113,7 @@ internal sealed class ParticleProvider : IParticleProvider
     return builder.GetRules();
   }
 
-  public Dictionary<Color, ReadOnlyCollection<GravityRule>> GetRules4(Vector2i area)
+  public IDictionary<Color, IReadOnlyCollection<GravityRule>> GetSample4(Vector2i area)
   {
     var count = Settings.MaximumParticlesCount;
     var green = Color.Green;
@@ -130,7 +130,7 @@ internal sealed class ParticleProvider : IParticleProvider
     return builder.GetRules();
   }
 
-  public Dictionary<Color, ReadOnlyCollection<GravityRule>> GetRandomRules(
+  public IDictionary<Color, IReadOnlyCollection<GravityRule>> GetRandomRules(
     Vector2i area,
     Range countRange,
     Range gravitateDistanceRange,
@@ -152,16 +152,16 @@ internal sealed class ParticleProvider : IParticleProvider
       foreach (var colorB in colors)
       {
         var gravityForce = Generator.Current.NextSingle() * 2f - 1f;
-        var gravityDistance =
+        var areaOfInfluence =
           Generator.Current.Next(gravitateDistanceRange.Start.Value, gravitateDistanceRange.End.Value);
         Debug.WriteLine(
-          $"A: {colorA}, B: {colorB}, Force: {gravityForce}, Distance: {gravityDistance}");
+          $"A: {colorA}, B: {colorB}, Force: {gravityForce}, Distance: {areaOfInfluence}");
 
         builder.MakeRule(
           colorA,
           colorB,
           gravityForce,
-          gravityDistance);
+          areaOfInfluence);
       }
     }
 

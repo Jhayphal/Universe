@@ -1,10 +1,9 @@
-﻿using OpenTK.Mathematics;
-using System.Collections.ObjectModel;
-using System.Drawing;
+﻿using System.Drawing;
+using OpenTK.Mathematics;
 
 namespace Universe.Providers;
 
-public interface IParticleProvider
+internal interface IParticleProvider
 {
-  Dictionary<Color, ReadOnlyCollection<GravityRule>> GetRules(Vector2i area);
+  IDictionary<Color, IReadOnlyCollection<GravityRule>> GetRules(Vector2i area);
 }

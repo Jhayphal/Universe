@@ -1,9 +1,11 @@
-﻿using Universe.Simulator;
+﻿using System.Diagnostics;
 using System.Drawing;
+using Universe.Simulator;
 
 namespace Universe.Providers;
 
-public class GravityRule : IGravityRule
+[DebuggerDisplay("Light: {Light}, SourceGroupCount: {SourceGroup.Length}, TargetGroupCount: {TargetGroup.Length}, GravityForce: {Force}, GravitateDistance: {AreaOfInfluence}")]
+internal class GravityRule : IGravityRule
 {
   public GravityRule(Color light, IElementaryParticle[] sourceGroup, IElementaryParticle[] targetGroup, float force,
     float areaOfInfluence)
@@ -24,12 +26,4 @@ public class GravityRule : IGravityRule
   public float Force { get; }
 
   public float AreaOfInfluence { get; } = Settings.DefaultAreaOfInfluence;
-
-  public override bool Equals(object obj) => Light.Equals((obj as GravityRule)?.Light);
-
-  public override int GetHashCode() => Light.GetHashCode();
-
-  public override string ToString()
-    =>
-      $"Light: {Light}, SourceGroupCount: {SourceGroup.Length}, TargetGroupCount: {TargetGroup.Length}, GravityForce: {Force}, GravitateDistance: {AreaOfInfluence}";
 }

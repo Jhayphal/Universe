@@ -1,17 +1,10 @@
-﻿using Universe.Helpers;
-using OpenTK.Compute.OpenCL;
+﻿using OpenTK.Compute.OpenCL;
+using Universe.Helpers;
 
 namespace Universe.Simulator;
 
-internal class GpuProgram : IDisposable
+internal sealed class GpuProgram : IDisposable
 {
-  private bool disposedValue;
-
-  public readonly CLContext Context;
-  public readonly CLCommandQueue CommandQueue;
-  public readonly CLProgram Program;
-  public readonly CLKernel Kernel;
-
   public GpuProgram(string sourceCode, string name, int platformId, int deviceId, DeviceType deviceType)
   {
     if (string.IsNullOrWhiteSpace(sourceCode))
@@ -25,46 +18,35 @@ internal class GpuProgram : IDisposable
     Kernel = CLHelper.CreateKernel(Program, name);
   }
 
-  protected virtual void Dispose(bool disposing)
-  {
-    if (!disposedValue)
-    {
-      if (Kernel.Handle != IntPtr.Zero)
-      {
-        var result = CL.ReleaseKernel(Kernel);
-        CLHelper.CheckResult(nameof(CL.ReleaseKernel), result, @throw: false);
-      }
-
-      if (Program.Handle != IntPtr.Zero)
-      {
-        var result = CL.ReleaseProgram(Program);
-        CLHelper.CheckResult(nameof(CL.ReleaseProgram), result, @throw: false);
-      }
-
-      if (CommandQueue.Handle != IntPtr.Zero)
-      {
-        var result = CL.ReleaseCommandQueue(CommandQueue);
-        CLHelper.CheckResult(nameof(CL.ReleaseCommandQueue), result, @throw: false);
-      }
-
-      if (Context.Handle != IntPtr.Zero)
-      {
-        var result = CL.ReleaseContext(Context);
-        CLHelper.CheckResult(nameof(CL.ReleaseContext), result, @throw: false);
-      }
-
-      disposedValue = true;
-    }
-  }
-
-  ~GpuProgram()
-  {
-    Dispose(disposing: false);
-  }
+  public readonly CLContext Context;
+  public readonly CLCommandQueue CommandQueue;
+  public readonly CLProgram Program;
+  public readonly CLKernel Kernel;
 
   public void Dispose()
   {
-    Dispose(disposing: true);
-    GC.SuppressFinalize(this);
+    if (Kernel.Handle != IntPtr.Zero)
+    {
+      var result = CL.ReleaseKernel(Kernel);
+      CLHelper.CheckResult(nameof(CL.ReleaseKernel), result, @throw: false);
+    }
+
+    if (Program.Handle != IntPtr.Zero)
+    {
+      var result = CL.ReleaseProgram(Program);
+      CLHelper.CheckResult(nameof(CL.ReleaseProgram), result, @throw: false);
+    }
+
+    if (CommandQueue.Handle != IntPtr.Zero)
+    {
+      var result = CL.ReleaseCommandQueue(CommandQueue);
+      CLHelper.CheckResult(nameof(CL.ReleaseCommandQueue), result, @throw: false);
+    }
+
+    if (Context.Handle != IntPtr.Zero)
+    {
+      var result = CL.ReleaseContext(Context);
+      CLHelper.CheckResult(nameof(CL.ReleaseContext), result, @throw: false);
+    }
   }
 }

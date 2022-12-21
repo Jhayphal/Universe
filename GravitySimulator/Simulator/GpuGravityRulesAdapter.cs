@@ -1,8 +1,8 @@
-﻿using Universe.Providers;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using MathHelper = OpenTK.Mathematics.MathHelper;
+﻿using System.Drawing;
 using OpenTK.Mathematics;
+using Universe.Providers;
+
+using MathHelper = OpenTK.Mathematics.MathHelper;
 
 namespace Universe.Simulator;
 
@@ -20,7 +20,7 @@ internal sealed class GpuGravityRulesAdapter : IGravityRulesAdapter
 
   public int ParticlesCount { get; private set; }
 
-  public void FillUp(Dictionary<Color, ReadOnlyCollection<GravityRule>> rules, Vector2i area)
+  public void FillUp(IDictionary<Color, IReadOnlyCollection<GravityRule>> rules, Vector2i area)
   {
     var offset = 0;
     var maps = new List<GpuMap>();
@@ -62,8 +62,8 @@ internal sealed class GpuGravityRulesAdapter : IGravityRulesAdapter
 
     ParticlesCount = particles.Length;
 
-    List<float> vertices = new();
-    List<float> accelerations = new();
+    List<float> vertices = new(Settings.MaximumParticlesCount);
+    List<float> accelerations = new(Settings.MaximumParticlesCount);
     foreach (var particle in particles)
     {
       AddPoint(vertices, particle.Position, area);
@@ -77,9 +77,7 @@ internal sealed class GpuGravityRulesAdapter : IGravityRulesAdapter
   }
 
   public void Setup(IGravitySimulator executor)
-  {
-    ((GpuGravitySimulator)executor).Setup(bag);
-  }
+    => ((GpuGravitySimulator)executor).Setup(bag);
 
   private static void AddPoint(List<float> vertices, Vector2 position, Vector2i area)
   {
@@ -99,7 +97,7 @@ internal sealed class GpuGravityRulesAdapter : IGravityRulesAdapter
   {
     accelerations.Add(acceleration.X);
     accelerations.Add(acceleration.Y);
-    accelerations.Add(0);
+    accelerations.Add(0); // Z
   }
 
   /// <summary>
